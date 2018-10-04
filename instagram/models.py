@@ -8,10 +8,21 @@ class Profile(models.Model):
     bio = HTMLField()
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default="")
 
-
+    def save_profile(self):
+        self.save()
+    
+    @classmethod
+    def get_profile(cls,id):
+        profile = Profile.objects.get(user = id)
+        return profile
+    
+    @classmethod
+    def filter_by_id(cls,id):
+        profile = Profile.objects.filter(user = id).first()
+        return profile
 
 class Image(models.Model):
-    image = models.ImageField(upload_to ='prof_pictures/')
+    photo = models.ImageField(upload_to ='prof_pictures/')
     image_name = models.CharField(max_length = 50)
     image_caption =  models.CharField(max_length = 50)
     profile = models.ForeignKey(Profile)
@@ -19,3 +30,22 @@ class Image(models.Model):
     comments = models.CharField(max_length = 100)
     user_profile = models.ForeignKey(User, on_delete=models.CASCADE, default="")
 
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+    
+    @classmethod
+    def update_caption(cls, update):
+        pass
+
+    @classmethod
+    def get_image(cls, id):
+        image = Image.objects.get(id=id)
+        return image
+    
+    @classmethod
+    def get_images(cls):
+        images = Image.objects.all()
+        return images
