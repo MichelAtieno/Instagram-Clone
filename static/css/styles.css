@@ -1,0 +1,12 @@
+body {
+    background-color: whitesmoke;
+}
+
+#navbar {
+    background-color: white;
+    /*background:linear-gradient(-90deg, #6600ff, #ff6600, #ffcc00);*/
+}
+
+#nav-header {
+    font-size: 30px;
+}

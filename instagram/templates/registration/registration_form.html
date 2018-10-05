@@ -1,42 +1,56 @@
 {%extends "registration/base.html"%}
 {% load bootstrap3 %}
 {% block content %}
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <!-- Empty div -->
+    <div class="col-md-4"></div>
     <div class="col-md-4"></div>
     <div class="col-md-4">
       {% if form.errors %}
         <p> Some Information Might be Incorrect </p>
       {% endif %}
-      <div class="panel panel-default">
+      <div class="panel panel-default" id="register-panel">
 
-        <div class="panel-heading">
-          <h3 class="text-center">Sign Up</h3>
+        <div class="panel-heading" id="register-heading">
+          <h3 class="text-center">
+                <a href="#" target="_blank" class="col dark-gray width-120">
+                <!--<i class="fa fa-fw fa-2x fa-github-square valign-middle"></i>-->
+                <i class="fa fa-instagram fa-2x" ></i>
+                
+              Register an account</h3>
         </div>
         <div class="panel-body">
 
           <form  action="/accounts/register/" method="post">
             {% csrf_token %}
             {% bootstrap_form form %}
-            <div class="form-group">
-              <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+            <div class="row">
+                <div class="form-group text-center col-md-4">
+                    <input type="submit" class="btn btn-primary btn-sm" value="Sign Up">
+                </div>
+                <div class="col-md-8">
+                    <p class="text-center"></p><a href="accounts/login">Already have an account  Sign In</a></p>   
+                </div>
+
             </div>
+            
+            
 
             <input type="hidden" name="next" value="{{next}}">
 
           </form>
 
+         
+
         </div>
-        <div class="panel-footer">
-            <h3 class="text-center"><a href="accounts/login">Sign in</a></h3>
-        </div>
+        
 
       </div>
 
     </div>
     <!-- empty div -->
-    <div class="col-md-4"></div>
+   
   </div>
 </div>
 
