@@ -54,3 +54,16 @@ class Image(models.Model):
     def get_profile_image(cls,profile):
         images = Image.objects.filter(profile__pk=profile)
         return images
+
+class Comment(models.Model):
+    comment = HTMLField()
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def save_comment(self):
+        self.save()
+
+    def get_comment(cls,id):
+        comments = Comment.objects.filter(Image__pk = id)
+        return comments
+    
