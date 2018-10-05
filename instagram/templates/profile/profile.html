@@ -53,7 +53,7 @@
         <div class="row">
             {% for img in images %}
             <div class="col-md-4">
-                <img src="{{img.photo.url}}" alt="Image" style="height:400px;width:400px;">
+                <img src="{{img.photo.url}}" alt="Image" style="height:400px;width:400px;" class="img-responsive">
             </div>
             {% empty %}
             <div class="col-md-12">

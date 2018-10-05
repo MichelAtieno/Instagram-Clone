@@ -2,5 +2,35 @@
 
 
 {%block content%}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            {% for img in images%}
+            <div class="col-md-8">
+                <p>
+                    <a href="{% url 'profile' username=img.user_profile.username %}">{{img.user_profile.username}}</a>
+                </p>
+                
+                <img src="{{img.photo.url}}" alt="Image" style="height:400px;width:400px;" class="img-responsive">
+                <ul>
+                    <li>
+                        <a href="{% url 'profile' username=img.user_profile.username %}">{{img.user_profile.username}}</a>
+                    </li>
+                    <li>
+                        {% autoescape on %}
+                            <p>{{img.image_caption}}</p>
+                        {% endautoescape%}
+                    </li>
+                </ul>
+                {% empty %}
+                <h2>NO IMAGES. FOLLOW OTHERS TO SEE IMAGES.</h2>
+                {% endfor %}
+            </div>
+            <div class="col-md-2"></div>
+            
+        </div>
+        
+
+    </div>
     
 {%endblock%}
