@@ -7,6 +7,7 @@ urlpatterns=[
     url(r'^$', views.register, name='register'),
     url(r'^home/$', views.home, name='home'),
     url(r'^user/(?P<username>\w+)', views.profile, name='profile'),
+    url(r'^upload/$', views.image, name='upload_image'),
 ]
 
 if settings.DEBUG:

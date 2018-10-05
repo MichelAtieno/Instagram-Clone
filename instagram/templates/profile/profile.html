@@ -42,24 +42,28 @@
                     </ul>
                     <p class="font3">{{profile_info.bio}}</p>
                     {% if profile.username == user.username %}
-                    <p><a href="">Add Image</a></p>
+                    <p><a href="{% url 'upload_image'%}">Add Image</a></p>
                     {% endif %}
                 </div>
             </div>
         </div>
     </div>
     <hr>
-    <div class="row">
-        {% for img in images %}
-        <div class="col-md-4">
-            <img src="{{img.photo.url}}" alt="Image">
+    <div class="container">
+        <div class="row">
+            {% for img in images %}
+            <div class="col-md-4">
+                <img src="{{img.photo.url}}" alt="Image" style="height:400px;width:400px;">
+            </div>
+            {% empty %}
+            <div class="col-md-12">
+                <h2>Profile has no images</h2>
+            </div>
+            {% endfor %}
         </div>
-        {% empty %}
-        <div class="col-md-12">
-            <h2>Upload images</h2>
-        </div>
-        {% endfor %}
+
     </div>
+    
 </div>
 <div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
