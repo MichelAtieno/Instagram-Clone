@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Profile, Image, Comment
-from .forms import RegistrationForm, ImageForm, CommentForm
+from .forms import RegistrationForm, ImageForm, CommentForm, ProfileForm
 
 # Create your views here.
 def register(request):
@@ -89,8 +89,23 @@ def image_comment(request, image_id):
         
     return render(request, 'comment.html', {'image':image, 'form':form, 'comments':comments})
 
+@login_required(login_url='/accounts/login')
+def edit_profile(request):
+   
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            edit = form.save(commit=False)
+            edit.user = request.user
+            edit.save()
+            return redirect('profile', username=request.user)
+            
+    else:
+        form = ProfileForm()
 
+    return render(request, 'profile/edit_profile.html', {'form':form, 'profile':profile})
 
+        
 
 
 
