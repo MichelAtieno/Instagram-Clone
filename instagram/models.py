@@ -25,7 +25,6 @@ class Image(models.Model):
     photo = models.ImageField(upload_to ='prof_pictures/')
     image_name = models.CharField(max_length = 50)
     image_caption =  models.CharField(max_length = 50)
-    profile = models.ForeignKey(Profile)
     likes = models.BooleanField(default=False)
     comments = models.CharField(max_length = 100)
     user_profile = models.ForeignKey(User, on_delete=models.CASCADE, default="")
@@ -42,7 +41,7 @@ class Image(models.Model):
 
     @classmethod
     def get_image(cls, id):
-        image = Image.objects.get(id=id)
+        image = Image.objects.get(pk=id)
         return image
     
     @classmethod
@@ -52,7 +51,7 @@ class Image(models.Model):
 
     @classmethod
     def get_profile_image(cls,profile):
-        images = Image.objects.filter(profile__pk=profile)
+        images = Image.objects.filter(user_profile__pk=profile)
         return images
 
 class Comment(models.Model):
@@ -63,7 +62,8 @@ class Comment(models.Model):
     def save_comment(self):
         self.save()
 
+    @classmethod
     def get_comment(cls,id):
-        comments = Comment.objects.filter(Image__pk = id)
+        comments = Comment.objects.filter(image__pk = id)
         return comments
     

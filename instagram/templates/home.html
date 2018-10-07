@@ -11,11 +11,15 @@
                             <a href="{% url 'profile' username=img.user_profile.username %}">{{img.user_profile.username}}</a>
                             <img class="card-img-top" src="{{img.photo.url}}" alt="Card image cap" class="img-responsive" style="height:400px;width:400px;">
                             <div class="card-body">
-                              <h5 class="card-title"> <a href="{% url 'profile' username=img.user_profile.username %}">{{img.user_profile.username}}</a></h5>
+                              <h5 class="card-title">
+                                   <a href="{% url 'profile' username=img.user_profile.username %}">{{img.user_profile.username}}</a></h5>
+                                   
                               <p class="card-text">
                                   {% autoescape on %}
                                     <p>{{img.image_caption}}</p>
                                   {% endautoescape%}</p>
+
+                                  <a href="{% url 'image_comment' image_id=img.id %}"><i class="fa fa-comment-o fa-2x" aria-hidden="true"></i></a>
                               
                             </div>
     
