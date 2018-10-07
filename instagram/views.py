@@ -13,7 +13,6 @@ def register(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
-            current_site = get_current_site(request)
             return redirect('accounts/login')
             # return HttpResponse('Confirm email to complete registration')
     else:
@@ -86,7 +85,7 @@ def edit_profile(request):
 
     return render(request, 'profile/edit_profile.html', {'form':form, 'profile':profile})
 
-def search(request):
+def search_profile(request):
     if 'search' in request.GET and request.GET['search']:
         search_term = request.GET.get('search')
         found_profiles = Profile.search_profile(search_term)
