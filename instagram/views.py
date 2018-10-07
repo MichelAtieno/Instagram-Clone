@@ -63,7 +63,7 @@ def image_comment(request, image_id):
             comment.image = image
             comment.user = request.user
             comment.save()
-            return redirect('image_comment', image_id='image_id')
+            return redirect('image_comment', image_id=image_id)
     else:
         form = CommentForm()
 
