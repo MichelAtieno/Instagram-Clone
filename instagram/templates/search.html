@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container top">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2 class="font2">Search results for {{message}}</h2>
+        </div>
+    </div>
+    <div class="row">
+        {% if profiles %}
+            {% for profile in profiles %}
+            <div class="card" style="width: 18rem;">
+                {% if profile.profile_photo %}
+                <img class="card-img-top" src="{{profile.profile_photo.url}}" alt="Card image cap" class="img-responsive"  style="height:400px;width:400px;">
+                {% endif %}
+                <div class="card-body">
+                <h5 class="card-title">{{profile.user.username}} </h5>
+                <a href="{% url 'profile' username=profile.user.username %}" class="btn btn-primary">View Profile</a>
+            </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="col-md-12 text-center">
+                <h4 class="font1">No results for {{message}} </h4>
+        </div>
+        {% endif %}
+                    
+            
+       
+
+    </div>
+</div>
+{% endblock %}

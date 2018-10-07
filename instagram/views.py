@@ -57,7 +57,6 @@ def image_comment(request, image_id):
     image = Image.get_image(image_id)
     comments = Comment.get_comment(image_id)
     
-
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -69,24 +68,6 @@ def image_comment(request, image_id):
     else:
         form = CommentForm()
 
-    return render(request, 'comment.html', {'image':image, 'form':form, 'comments':comments})
-
-@login_required(login_url='/accounts/login')
-def image_comment(request, image_id):
-    image = Image.get_image(image_id)
-    comments = Comment.get_comment(image_id)
-
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.image = image
-            comment.user = request.user
-            comment.save()
-            return redirect('image_comment', image_id=image_id)
-    else:
-        form = CommentForm()
-        
     return render(request, 'comment.html', {'image':image, 'form':form, 'comments':comments})
 
 @login_required(login_url='/accounts/login')
@@ -104,6 +85,18 @@ def edit_profile(request):
         form = ProfileForm()
 
     return render(request, 'profile/edit_profile.html', {'form':form, 'profile':profile})
+
+def search(request):
+    if 'search' in request.GET and request.GET['search']:
+        search_term = request.GET.get('search')
+        found_profiles = Profile.search_profile(search_term)
+        message = f'{search_term}'
+
+        return render(request, 'search.html',{'message':message, 'profiles':found_profiles})
+    else:
+        message = 'Enter term to search'
+        return render(request, 'search.html', {'message':message})
+
 
         
 

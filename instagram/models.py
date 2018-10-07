@@ -21,6 +21,11 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user = id).first()
         return profile
 
+    @classmethod
+    def search_profile(cls,name):
+        profile = Profile.objects.filter(user__username__icontains = name)
+        return profile
+
 class Image(models.Model):
     photo = models.ImageField(upload_to ='prof_pictures/')
     image_name = models.CharField(max_length = 50)

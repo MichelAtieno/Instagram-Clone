@@ -4,8 +4,13 @@
         <a class="navbar-brand" href="/home" id="nav-header"><i class="fa fa-instagram fa-1x"></i> | INSTAGRAM</a>
 
     </div>
-    <div class="col-md-5"></div>
-    <div class="col-md-3">
+    <div class="col-md-5">
+        <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'search' %}">
+            <input class="form-control my-2 my-sm-0 search-input" name="search" type="search" placeholder="Search Users" aria-label="Search">
+        </form>
+    </div>
+    <div class="col-md-3  nav-search">
+
         {% if user.is_authenticated %}
         <!--<a href="/accounts/password/change" style="font-size:25px;">Change Password |</a> -->
      
