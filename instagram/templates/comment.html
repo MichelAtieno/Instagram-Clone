@@ -8,7 +8,7 @@
                 <p class="home-text">
                         <a href="{% url 'profile' username=image.user_profile.username %}">{{image.user_profile.username}}</a>
                 </p> 
-                <img src="{{image.photo.url}}" alt="Image" class="img-responsive" style="height:400px;width:400px;">
+                <img src="{{image.photo.url}}" alt="Image" class="img-responsive" style="height:400px;width:400px;border-radius:20px;">
                 <ul class="list-inline home-list">
                     <li class="list-inline-item">
                             <a href="{% url 'profile' username=image.user_profile.username %}">{{image.user_profile.username}}</a>

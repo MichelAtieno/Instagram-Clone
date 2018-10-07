@@ -14,7 +14,7 @@
             <div class="card" style="width: 18rem;">
                 {% if profile.profile_photo %}
                 <p>{{profile.user.username}}</p>
-                <img class="card-img-top" src="{{profile.profile_photo.url}}" alt="Card image cap" class="img-responsive"  style="height:400px;width:400px;">
+                <img class="card-img-top" src="{{profile.profile_photo.url}}" alt="Card image cap" class="img-responsive"  style="height:400px;width:400px;border-radius:20px;">
                 <div class="card-body">
                 <h5 class="card-title">{{profile.bio}} </h5>
                 {% endif %}

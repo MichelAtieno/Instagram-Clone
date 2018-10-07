@@ -69,7 +69,7 @@
         <div class="row">
             {% for img in images %}
             <div class="col-md-4">
-                <img src="{{img.photo.url}}" alt="Image" style="height:400px;width:400px;" class="img-responsive">
+                <img src="{{img.photo.url}}" alt="Image" style="height:400px;width:400px;border-radius:20px;" class="img-responsive">
                 <h3>
                     <a data-toggle="modal" data-target="#{{one_image.id}}" style="font-size:40px; color: rgb(62, 235, 235);;text-transform: capitalize; text-align:center; text-decoration: underline; font-family:'Segoe UI';">{{one_image.name}}</a>
                 </h3>
