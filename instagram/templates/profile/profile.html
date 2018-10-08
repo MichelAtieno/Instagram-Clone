@@ -2,57 +2,43 @@
 
 {% block content %}
 {{ form.media }}
-<div class="container">
+<div class="container" >
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-5"></div>
                 <div class="col-md-2"></div>
-                <div class="col-md-5">
-                    <div class="row" style="display:flex; flex-direction:column;">
-                        <div class="col-md-6">
-                            {% if profile_info.profile_photo %}
-                            <img class="avatar" src="{{profile_info.profile_photo.url}}" alt="profile-photo"
-                            style="vertical-align: middle;width: 70px;height: 70px;border-radius: 60%;">
-                            {% endif %}
-                            {{ profile.username }}
-
-                        </div>
-                        <div class="col-md-6">
-                            {% if profile.username == user.username %}
-                            <a href="{% url 'edit_profile' %}">Edit Profile</a>
-                        
-                            <a data-toggle="modal" data-target="#settings"><i class="fa fa-cog fa-2x"></i></a>
-                        
-                            {% else %}
-                            
-                            <a href="#" class="btn btn-primary">Follow</a>
-                            
-                            {% endif %}
-
-                        </div>
-                    </div>
-                    <div class="row">
-                            <div class="col-md-12">
-                                    {{images|length}} Posts
+                <div class="col-md-5" style="font-size: 23px;">
+                    {% if profile_info.profile_photo %}
+                    <img class="avatar" src="{{profile_info.profile_photo.url}}" alt="profile-photo"
+                    style="vertical-align: middle;width: 180px;height: 180px;border-radius: 60%;">
+                    {% endif %}
+                    {{ profile.username }}
+                </div>
                 
-                                    0 Followers
-                                
-                                    0 Following
-                                    
-                            </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p class="font3">{{profile_info.bio}}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% if profile.username == user.username %}
-                            <p><a href="{% url 'upload_image'%}">Add Image</a></p>
-                            {% endif %}
-                        </div>   
+                <div class="col-md-5" style="font-size: 18px;">
+                    {% if profile.username == user.username %}
+                    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+                    <a data-toggle="modal" data-target="#settings"><i class="fa fa-cog fa-2x"></i></a>
+                    {% else %}
+                    <a href="#" class="btn btn-primary">Follow</a>
+                    
+                    {% endif %}
+                    <br>
+                    <br>
+                    {{images|length}} Posts
+                    <br>
+                    <br>
+                    0 Followers
+                
+                    0 Following
+                    <br>
+                    <br>
+                    <p class="font3">BIO: {{profile_info.bio}}</p>
+            
+                    {% if profile.username == user.username %}
+                    <p><a href="{% url 'upload_image'%}">Add Image</a></p>
+                    {% endif %}
+                </div>   
 
                     </div>                          
                 </div>
@@ -87,7 +73,9 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body"><ul class="list-group">
-            <li class="list-group-item text-center"><a href="">Edit Profile</a></li>
+            {% if profile.username == user.username %}
+            <li class="list-group-item text-center"><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
+            {% endif %}
             <li class="list-group-item text-center"><a href="/logout/">Log Out</a></li>
             <li class="list-group-item text-center"><a data-dismiss="modal">Cancel</a></li>
           </ul>

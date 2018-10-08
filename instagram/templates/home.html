@@ -3,12 +3,19 @@
 
 {%block content%}
     <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
+        <div class="row" style="font-size:23px;">
+            <div class="col-md-2">
+                <a class="btn btn-success" href="{% url 'edit_profile' %}">Edit Profile</a>
+                <br>
+                <br>
+                <a class="btn btn-primary" href="{% url 'upload_image'%}">Add Image</a>
+            </div>
+            
             <div class="col-md-8">
+                    
                     {% for img in images%}
                     <div class="card" style="width: 18rem;" data-toggle="modal" data-target="#{{img.id}}">
-                            <a href="{% url 'profile' username=img.user_profile.username %}" style="font-weight:bolder;font-size:18px;">{{img.user_profile.username}}</a>
+                            <a href="{% url 'profile' username=img.user_profile.username %}" style="font-weight:bolder;">{{img.user_profile.username}}</a>
                             <img class="card-img-top" src="{{img.photo.url}}" alt="Card image cap" class="img-responsive" style="height:400px;width:400px;border-radius:20px;">
                             <div class="card-body">
                               <h5 class="card-title"></h5>
