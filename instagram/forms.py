@@ -11,14 +11,6 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
-    # def save(self, commit=True):
-    #     user = super(RegistrationForm, self).save(commit=False)
-    #     user.email = cleaned_data['email']
-        
-    #     if commit:
-    #         user.save()
-
-    #     return user
 
 class ImageForm(forms.ModelForm):
     class Meta:

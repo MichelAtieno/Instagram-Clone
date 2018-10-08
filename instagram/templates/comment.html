@@ -19,12 +19,12 @@
                 </ul>
                
                 <hr>
-                <p class="home-list">Comments</p>
+                <p style="font-size:18px; text-transform: capitalize; text-decoration: underline">Comments</p>
                 <div class="comments">
                 {% for comment in comments %}
                     <div class="row">
                         <div class="col-md-10">
-                            <ul class="list-inline home-list">
+                            <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <a href="{% url 'profile' username=comment.user.username %}">{{comment.user.username}}</a>
                                 </li>

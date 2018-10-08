@@ -1,23 +1,53 @@
 from django.http  import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .models import Profile, Image, Comment
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from .email import send_welcome_email
 from .forms import RegistrationForm, ImageForm, CommentForm, ProfileForm
+from .models import Profile, Image, Comment
+from .tokens import account_activation_token
+
 
 # Create your views here.
 def register(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_active = False
-            user.save()
-            return redirect('accounts/login')
-            # return HttpResponse('Confirm email to complete registration')
+    if request.user.is_authenticated():
+        return redirect('home')
     else:
-        form = RegistrationForm()
-        return render(request, 'registration/registration_form.html', {'form':form})
+        if request.method == 'POST':
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.is_active = False
+                user.save()
+                current_site =get_current_site(request)
+                to_email = form.cleaned_data['email']
+                send_welcome_email(user, current_site, to_email)
+                #return redirect('accounts/login')
+                return HttpResponse('Confirm email address')
+        else:
+            form = RegistrationForm()
+            return render(request, 'registration/registration_form.html', {'form':form})
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request, user)
+        # return redirect('home')
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 
 @login_required(login_url='/')
@@ -29,10 +59,10 @@ def home(request):
 
 def profile(request, username):
     profile = User.objects.get(username=username)
-    try:
-        profile_info = Profile.get_profile(profile.id)
-    except:
-        profile_info = Profile.filter_by_id(profile.id)
+    # try:
+    profile_info = Profile.get_profile(profile.id)
+    # # except:
+    # profile_info = Profile.filter_by_id(profile.id)
     images = Image.get_profile_image(profile.id)
     title = f'@{profile.username}'
     return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_info':profile_info, 'images':images})  
