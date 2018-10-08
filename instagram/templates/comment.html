@@ -1,26 +1,18 @@
 {% extends 'base.html' %}
-{% load bootstrap3 %}
+{% load bootstrap4 %}
 
 {% block content %}
 <div class="container top">
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-7" style="font-size:23px;">
                 <p class="home-text">
-                        <a href="{% url 'profile' username=image.user_profile.username %}">{{image.user_profile.username}}</a>
+                    <a href="{% url 'profile' username=image.user_profile.username %}">{{image.user_profile.username}}</a>
                 </p> 
                 <img src="{{image.photo.url}}" alt="Image" class="img-responsive" style="height:400px;width:400px;border-radius:20px;">
-                <ul class="list-inline home-list">
-                    <li class="list-inline-item">
-                            <a href="{% url 'profile' username=image.user_profile.username %}">{{image.user_profile.username}}</a>
-                    </li>
-                    <li class="list-inline-item">
-                        <p>{{image.image_caption}} </p>
-                    </li>
-                </ul>
+                <p>{{image.image_caption}} </p>
                
                 <hr>
-                <p style="font-size:18px; text-transform: capitalize; text-decoration: underline">Comments</p>
-                <div class="comments">
+                <div>
                 {% for comment in comments %}
                     <div class="row">
                         <div class="col-md-10">
