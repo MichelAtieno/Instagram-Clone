@@ -11,8 +11,8 @@
         <div class="col-md-3">
         {% if profiles %}
             {% for profile in profiles %}
-            <div class="card" style="width: 18rem;">
-                <a href="{% url 'profile' username=profile.user.username %}" class="btn btn-primary">View Profile</a>
+            <div class="card" style="width: 18rem;border:hidden;">
+                <a href="{% url 'profile' username=profile.user.username %}" class="btn btn-primary" style="font-size:21px;">View Profile</a>
                 {% if profile.profile_photo %}
                 <p>USERNAME: {{profile.user.username}}</p>
                 <img class="card-img-top" src="{{profile.profile_photo.url}}" alt="Card image cap" class="img-responsive"  style="height:400px;width:400px;border-radius:20px;">

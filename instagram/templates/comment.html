@@ -37,7 +37,7 @@
                 <form action="{% url 'image_comment' image_id=image.id %}" method="POST">
                     {% csrf_token %}
                     {% bootstrap_form form %}
-                    <input type="submit" class="btn btn-success" value="Write Comment">
+                    <input type="submit" class="btn btn-success" value="Write Comment" style="font-size:21px;">
                 </form>
             </div>
         </div>
